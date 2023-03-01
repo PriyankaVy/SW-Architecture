@@ -17,7 +17,6 @@ OUTPUT_FOLDER = os.path.join(os.getcwd(), 'outputs')
 #Defining allowed files
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
-
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
