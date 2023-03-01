@@ -1,0 +1,96 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #eef5ff;
+}
+.wrapper {
+  width: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 90%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  gap: 15px;
+}
+
+.cont {
+  height: 50px;
+  width: 50px;
+  background-color: #ffffff;
+  box-shadow: 0 0 25px rgba(17, 1, 68, 0.08);
+  border-radius: 8px;
+  position: relative;
+  cursor: pointer;
+}
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+}
+input[type="checkbox"]:after {
+  position: absolute;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  content: "\f111";
+  font-size: 18px;
+  color: #478bfb;
+  right: 10px;
+  top: -10px;
+}
+input[type="checkbox"]:checked:after {
+  font-weight: 900;
+  content: "\f058";
+  color: #478bfb;
+}
+.cont img {
+  width: 60%;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+@media screen and (min-width: 950px) {
+  .wrapper {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+  .cont {
+    height: 150px;
+    width: 150px;
+  }
+  input[type="checkbox"]:after {
+    font-size: 22px;
+  }
+}
+
+.logo-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 75%;
+    overflow: hidden;
+    margin-top: -1px;
+}
+
+h1,
+.navbar-brand {
+ font-family: 'Lucida Handwriting', cursive;
+}
+
+.user_btn {
+    padding: 10px 40px;
+    font-size: 25px;
+    font-family: 'Lucida Handwriting', cursive;
+    color: black;
+    background: #eed202;
+    border: none;
+    border-radius: 5px;
+
+}
