@@ -4,9 +4,9 @@ import uuid
 
 from flask import Flask, Response, send_file, request, render_template, jsonify
 from flask_jsonrpc import JSONRPC
-from werkzeug.utils import secure_filename
+from werkzeug.utils import secure_filename, redirect
 from PIL import Image
-
+from flasgger import Swagger, swag_from, LazyString, LazyJSONEncoder
 
 #Defining upload folder path
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
@@ -17,21 +17,50 @@ OUTPUT_FOLDER = os.path.join(os.getcwd(), 'outputs')
 #Defining allowed files
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
+#Defining Swagger UI Document template and configuration
+swagger_template = dict(
+info={
+    'title': LazyString(lambda: 'My first Swagger UI document'),
+    'version': LazyString(lambda: '0.1'),
+    'description': LazyString(lambda:'This document depicts a Swagger UI document and implements image_process '
+                                     'functionality after executing POST.'),
+    },
+    host=LazyString(lambda: request.host)
+)
+swagger_config = {
+    "headers": [],
+    "specs": [
+        {
+            "endpoint": 'image_process',
+            "route": '/image_process.yml',
+            "rule_filter": lambda rule: True,
+            "model_filter": lambda tag: True,
+        }
+    ],
+    "static_url_path": "/flasgger_static",
+    "swagger_ui": True,
+    "specs_route": "/apidocs/"
+}
+
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
 #limit file size to 16MB
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
-
+app.json_encoder = LazyJSONEncoder
 jsonrpc = JSONRPC(app, '/api')
+swagger = Swagger(app, template=swagger_template, config=swagger_config)
 
+@app.route('/apidocs')
+def apidocs():
+    return redirect('/apidocs/index.html?url=/api/spec')
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-
 @app.route('/process', methods=['POST'])
+@swag_from("image_process.yml", methods=['POST'])
 def image_process():
     # Get the image file from the request
     uploaded_img = request.files['image']
@@ -64,8 +93,6 @@ def image_process():
 def process_image(filename, operations):
     # Read the image file using Pillow
     with Image.open(os.path.join(app.config['UPLOAD_FOLDER'], filename)) as img:
-        #Check if image is grayscale
-        is_grayscale = img.mode == 'L'
 
         # Apply the operations to the image in order
         for operation in operations:
@@ -81,19 +108,14 @@ def process_image(filename, operations):
                 img = img.transpose(Image.FLIP_LEFT_RIGHT)
             elif operation == 'grayscale':
                 img = img.convert('L')
-                is_grayscale = True
             elif operation == 'resize':
                 img = img.resize((int(img.width * 0.5), int(img.height * 0.5)))
             elif operation == 'thumbnail':
                 img.thumbnail((128, 128))
 
-        #Convert grayscale image to RGB before saving as JPEG
-        if is_grayscale:
-            img = img.convert('RGB')
-
         # Save the processed image to a bytes buffer
         buffer = io.BytesIO()
-        img.save(buffer, format='JPEG')
+        img.save(buffer, format='PNG')
         buffer.seek(0)
 
         # Return the processed image data as a bytes buffer
