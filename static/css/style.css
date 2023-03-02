@@ -7,10 +7,10 @@ body {
   background-color: #eef5ff;
 }
 .wrapper {
-  width: 50%;
+  width: 60%;
   position: absolute;
   transform: translate(-50%, -50%);
-  top: 90%;
+  top: 105%;
   left: 50%;
   display: grid;
   place-items: center;
@@ -21,15 +21,14 @@ body {
   height: 50px;
   width: 50px;
   background-color: #ffffff;
-  box-shadow: 0 0 25px rgba(17, 1, 68, 0.08);
-  border-radius: 8px;
+  border-radius: 100%;
   position: relative;
   cursor: pointer;
 }
 input[type="checkbox"] {
   -webkit-appearance: none;
   position: relative;
-  width: 100%;
+  width: 97%;
   cursor: pointer;
 }
 input[type="checkbox"]:after {
@@ -40,7 +39,7 @@ input[type="checkbox"]:after {
   font-size: 18px;
   color: #478bfb;
   right: 10px;
-  top: -10px;
+  top: -15px;
 }
 input[type="checkbox"]:checked:after {
   font-weight: 900;
@@ -82,14 +81,15 @@ input[type="checkbox"]:checked:after {
 h1,
 .navbar-brand {
  font-family: 'Lucida Handwriting', cursive;
+ color: white;
 }
 
 .user_btn {
     padding: 10px 40px;
     font-size: 25px;
     font-family: 'Lucida Handwriting', cursive;
-    color: black;
-    background: #eed202;
+    color: white;
+    background: #007bff;
     border: none;
     border-radius: 5px;
 
