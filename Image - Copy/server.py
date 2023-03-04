@@ -32,11 +32,12 @@ class ImageProcessor:
         print("The image is resized ")
         return image.resize(size)
 
-    def thumbnail_image(self, image, thumb):
+    def thumbnail_image(self, image):
         print("The image thumbnail of 300*300 size is saved")
-        width, height = thumb
-        image.thumbnail((width, height))
-        return image
+        thumb = 300, 300
+        thumbnail_image = image.copy()
+        thumbnail_image.thumbnail(thumb, resample=0)
+        return thumbnail_image
 
     def rotate_left_right_image(self, image, side):
         if side == "left":
@@ -72,8 +73,8 @@ class ImageProcessor:
                 image = self.rotate_left_right_image(image, op["side"])
                 print(image.width, image.height)
             elif op["name"] == "thumbnail":
-                thumbnail = image.copy()
-                thumbnail = self.thumbnail_image(thumbnail, op["thumb"])
+                #thumbnail = image.copy()
+                thumbnail = self.thumbnail_image(image)
                 print(image.width, image.height)
 
         if thumbnail is not None:

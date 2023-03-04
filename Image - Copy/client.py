@@ -25,7 +25,7 @@ if set_choice == "a":
     operations = [{"name": "flip", "axis": "vertical"},
                   {"name": "rotate", "degrees": 60},
                   {"name": "grayscale", "scale": "yes"},
-                  {"name": "resize", "size": (1000, 1000)}]
+                  {"name": "resize", "size": (2000, 2000)}]
 
     with open(filename, "rb") as handle:
         image_data = xmlrpc.client.Binary(handle.read())
@@ -39,11 +39,12 @@ if set_choice == "a":
 elif set_choice == "b":
     operations = [{"name": "rotate", "degrees": 40},
                   {"name": "flip", "axis": "horizontal"},
-                  {"name": "thumbnail", "thumb": (300,300)},
+                  {"name": "resize", "size": (1000, 1500)},
+                  {"name": "thumbnail"},
                   {"name": "grayscale", "scale": "yes"},
                   {"name": "rotate_left_right", "side": "right"},
-                  {"name": "thumbnail", "thumb": (300,300)},
-                  {"name": "resize", "size": (800, 800)},
+                  {"name": "resize", "size": (3000, 2000)},
+                  {"name": "thumbnail"},
                   {"name": "rotate_left_right", "side": "right"}]
 
     with open(filename, "rb") as handle:
