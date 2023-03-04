@@ -39,11 +39,11 @@ if set_choice == "a":
 elif set_choice == "b":
     operations = [{"name": "rotate", "degrees": 40},
                   {"name": "flip", "axis": "horizontal"},
-                  {"name": "resize", "size": (1000, 1500)},
+                  {"name": "resize", "size": (4000, 3000)},
                   {"name": "thumbnail"},
                   {"name": "grayscale", "scale": "yes"},
                   {"name": "rotate_left_right", "side": "right"},
-                  {"name": "resize", "size": (3000, 2000)},
+                  {"name": "resize", "size": (4000, 4000)},
                   {"name": "thumbnail"},
                   {"name": "rotate_left_right", "side": "right"}]
 
