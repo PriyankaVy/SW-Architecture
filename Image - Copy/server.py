@@ -75,7 +75,7 @@ class ImageProcessor:
             elif op["name"] == "thumbnail":
                 #thumbnail = image.copy()
                 thumbnail = self.thumbnail_image(image)
-                print(image.width, image.height)
+                print(thumbnail.width, thumbnail.height)
 
         if thumbnail is not None:
             with BytesIO() as snap, BytesIO() as output:
